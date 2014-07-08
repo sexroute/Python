@@ -1,0 +1,4 @@
+path setting:
+	1. environment variable PYTHONPATH=${yourpath}
+	2. sys.path.append(${yourpath})
+	3. Python32\Lib\site-packages\pywin32.pth
