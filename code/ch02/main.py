@@ -7,5 +7,5 @@ wbLogin = login.Login()
 if wbLogin.login(filename)==1:
 	print('Login success!')
 else:
-	print('Login error!')
+	print('Main Login error!')
 	exit()
