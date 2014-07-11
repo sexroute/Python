@@ -86,4 +86,60 @@ def myfor():
 # myfor()
 
 
+class Mapping:
+	"""docstring for Mapping"""
+	def __init__(self, iterable):
+		self.items_list = []
+		self.__update(iterable)
+	def update(self, iterable):
+		for item in iterable:
+			self.items_list.append(item)
+	__update = update
+class MappingSubclass(Mapping):
+	"""docstring for MappingSubclass"""
+	def update(self, keys, values):
+		for item in zip(keys, values):
+			self.items_list.append(item)
+# m = MappingSubclass({1,2,3})
+# m.update([4,5,6],[6,5,4])
+# print(m.items_list)
+# m._Mapping__update([7,8,9])
+# print(m.items_list)
+		
+
+class Employee:
+	"""docstring for Employee"""
+	pass
+	def myins(self):
+		john = Employee()
+		john.name = 'John Doe'
+		john.dept = 'computer lab'
+		john.salary = 1000
+		return john
+# print(Employee.myins(1).name)
+# print(Employee().myins().name)
+# print(Employee().myins.__self__)
+# print(Employee().myins.__func__)
+
+
+class B(Exception):
+	"""docstring for B"""
+	pass
+class C(B):
+	"""docstring for C"""
+	pass
+class D(C):
+	"""docstring for D"""
+	pass
+# for c in [B, C, D]:
+# 	try:
+# 		raise c()
+# 	except D as e:
+# 		print("D")
+# 	except C:
+# 		print("C")
+# 	except B:
+# 		print("B")
+
+
 
