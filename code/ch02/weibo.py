@@ -58,12 +58,3 @@ class Myrequests:
 # Myrequests().myget()
 
 
-url = 'http://www.baidu.com'
-# data = request.urlopen(url).read().decode('gbk','ignore')
-# print(data)
-r = requests.get(url)
-print(r.text)
-
-
-
-
