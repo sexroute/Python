@@ -9,25 +9,12 @@ def myget():
 
 def mypost():
     r = requests.get('https://github.com/timeline.json')
-    return r,r.text, r.content, r.encoding
-
-def myimage():
-	from PIL import Image
-	from StringIO import StringIO
-	i = Image.open(StringIO(r.content))
-
-def myjson():
-	# print(mypost()[1])
-	# print(mypost()[0].json())
-	print(mypost()[0].headers)
-
-
+    print(r.encoding)
+    print(r.text)
+    print(r.content)
 
 
 if __name__ == '__main__':
     # myget()
     # mypost()
-    # myimage()
-    myjson()
     pass
-
