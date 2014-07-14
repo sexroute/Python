@@ -17,7 +17,7 @@ def scope_test():
 	def do_local():
 		spam = 'local_spam'
 	def do_nonlocal():
-		nonlocal spam
+		# nonlocal spam
 		spam = 'nonlocal spam'
 	def do_global():
 		global spam
