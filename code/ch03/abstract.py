@@ -106,9 +106,9 @@ tc = TalkingCalculator()
 # print eval("1+2")
 # print callable(getattr(TalkingCalculator(), 'caclulator'))
 # print callable(getattr(TalkingCalculator(), 'talk'))
-setattr(tc, 'who', 'MR.')
-print tc.who
-print tc.__dict__
+# setattr(tc, 'who', 'MR.')
+# print tc.who
+# print tc.__dict__
 
 
 
@@ -118,7 +118,31 @@ def bind(self):
 # print bind.value
 
 
+# print map(str, range(10))
+def func(x):
+	return x.isalnum()
+seq = ["foo", "x41", "?!", "***"]
+# print filter(func, seq)
+# print [x for x in seq if x.isalnum()]
+# print filter(lambda x : x.isalnum(), seq)
+print reduce(lambda x,y: x+y, range(10))
 
-
-
+class A(object):
+	"""docstring for A"""
+	def __init__(self):
+		super(A, self).__init__()
+		print 'A init'
+class B(object):
+	"""docstring for B"""
+	def __init__(self):
+		super(B, self).__init__()
+		print 'B init'
+class C(A,B):
+	"""docstring for C"""
+	def __init__(self):
+		super(C, self).__init__()
+		A.__init__(self)
+		# B.__init__(self)
+# C()
+		
 
