@@ -142,4 +142,34 @@ class D(C):
 # 		print("B")
 
 
+__metaclass__ = type # super only works new-style classes
+class Bird:
+	"""docstring for Bird"""
+	def __init__(self, hungry):
+		self.hungry = hungry
+	def eat(self):
+		if self.hungry:
+			print 'Aaaah...'
+			self.hungry = False
+		else:
+			print 'No, thanks!'
+class SongBird(Bird):
+	"""docstring for SongBird"""
+	def __init__(self):
+		# super(SongBird, self).__init__(True)
+		Bird.__init__(self, True)
+		self.sound = 'Squawk!'
+	def sing(self):
+		print self.sound
+
+sb = SongBird()
+sb.sing()
+sb.eat()
+sb.eat()
+
+
+
+
+# page 182
+
 
