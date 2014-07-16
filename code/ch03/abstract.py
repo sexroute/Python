@@ -31,6 +31,12 @@ instance = Class()
 # fun = instance.method
 # fun()
 
+# obj = Object(1)
+# obj.you = function
+# obj.you()
+
+
+
 
 class C:
 	"""docstring for C"""
@@ -125,7 +131,7 @@ seq = ["foo", "x41", "?!", "***"]
 # print filter(func, seq)
 # print [x for x in seq if x.isalnum()]
 # print filter(lambda x : x.isalnum(), seq)
-print reduce(lambda x,y: x+y, range(10))
+# print reduce(lambda x,y: x+y, range(10))
 
 class A(object):
 	"""docstring for A"""
