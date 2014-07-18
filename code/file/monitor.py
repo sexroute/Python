@@ -48,8 +48,6 @@ class SvnRead(object):
         return [(names[i],i) for i in range(len(names)) if names.count(names[i])>1]
 
 
-
-
 svnRead = SvnRead()
 print svnRead.report("datasets","name")
 
