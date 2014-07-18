@@ -138,17 +138,28 @@ class A(object):
 	def __init__(self):
 		super(A, self).__init__()
 		print 'A init'
+		self.__valueA = "__valueA"
+		self._valueA = "_valueA"
 class B(object):
 	"""docstring for B"""
 	def __init__(self):
 		super(B, self).__init__()
 		print 'B init'
+	def valueB(self):
+		print A()._valueA
 class C(A,B):
 	"""docstring for C"""
 	def __init__(self):
 		super(C, self).__init__()
-		A.__init__(self)
+		# A.__init__(self)
 		# B.__init__(self)
+	def valueC(self):
+		print self._A__valueA
+		print self._valueA
 # C()
 		
+C().valueC()
+# B().valueB()
+
+
 
