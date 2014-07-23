@@ -53,7 +53,7 @@ class Encryption(EncryAbstract):
 			addsalt.insert(random.randint(0,len(addsalt)),salt)
 		return ''.join(chr(i + 33) for i in addsalt)
 
-	def writepubkey(self):
+	def _writepubkey(self):
 		""" store the pubkey value """
 		pubkey = self._addSalt()
 		if os.path.exists(_PubVariable.pubkeyfile):
@@ -64,6 +64,7 @@ class Encryption(EncryAbstract):
 
 	def writeConf(self,name,password):
 		""" writing encrypted name&password to config file """
+		self._writepubkey()
 		with open(_PubVariable.infofile,'w') as conf, open(_PubVariable.filelistfile,'w') as ls:
 			conf.writelines(
 				"""[HADOOP-SVN-INFO]
@@ -74,7 +75,7 @@ fileList = fileList.list"""%(name,password))
 			ls.write("src/main/resources/config/Pad-dbw/pad-common/datasets.xml")
 
 
-class ReadConf(object):
+class ReadConf(ReadConfAbstract):
 	"""docstring for ReadConf"""
 	def __init__(self):
 		super(ReadConf, self).__init__()
@@ -93,7 +94,7 @@ class ReadConf(object):
 		configFile.close()
 		return config
 
-	def fetchNamePsd(self):
+	def fetchNamePswd(self):
 		config = self._getConf()
 		try:
 			name = config.get('HADOOP-SVN-INFO','username')
@@ -132,7 +133,7 @@ class Decryption(DecryAbstract):
 	salt = '['+''.join([chr(x) for x in range(_PubVariable.SaltStart,_PubVariable.SaltEnd+1)]) + ']'
 	keymap = []
 	def _clearKey(self):
-		""" clear salt in pubkey written by Encryption.writepubkey() """
+		""" clear salt in pubkey written by Encryption._writepubkey() """
 		if self.keymap != []:
 			return self.keymap
 		with open(_PubVariable.pubkeyfile, "r") as f:
@@ -153,29 +154,8 @@ class Decryption(DecryAbstract):
 		return decryValue
 
 
-
-class ProcessDeal(ProcessAbstract):
-	"""docstring for Process"""
-	@staticmethod
-	def encryProcess(encry,name='',password=''):
-		"""encry is a instance of subclass of EncryAbstract """
-		if name.strip == '' or password.strip() == '':
-			name,password = infoinput()
-		name = encry.encodeValue(name)
-		password = encry.encodeValue(password,True)
-		encry.writepubkey()
-		encry.writeConf(name,password)
-
-	@staticmethod
-	def decryProcess(decry,readconf,name=None,password=None):
-		""" decry is a instance of subclass of DecryAbstract """
-		if name==None or password==None:
-			name,password = readconf.fetchNamePsd()
-		return decry.decodeValue(name), decry.decodeValue(password,True)
-
-
 if __name__ == '__main__':
-	ProcessDeal.encryProcess(Encryption())
+	ProcessAbstract.encryProcess(Encryption(),"CHENGSIQIN754","Loveyou")
 
 
 
@@ -187,7 +167,7 @@ if __name__ == '__main__':
 # print encry.encodeValue("CHENGSIQIN754",encryKey)
 # print encry.encodeValue("Loveyou",encryKey,True)
 # encry.writeConf( encry.encodeValue(name, encryKey), encry.encodeValue(password, encryKey, True) )
-# encry.writepubkey(encry.addSalt(encryKey))
+# encry._writepubkey(encry.addSalt(encryKey))
 
 
 # value = [1,2]
@@ -228,7 +208,7 @@ if __name__ == '__main__':
 # print [chr(i+32) for i in encryKey]
 # print ''.join(chr(i) for i in encryKey)
 # print encry.addSalt(encryKey)
-# writepubkey(encry.addSalt(encryKey))
+# _writepubkey(encry.addSalt(encryKey))
 
 
 # print decry.clearKey()

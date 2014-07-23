@@ -14,10 +14,14 @@ class EncryAbstract(object):
 	# 	super(EncryAbstract, self).__init__()
 	def encodeValue(self,value,reverse=False):
 		pass
-	def writepubkey(self):
-		pass
 	def writeConf(self,name,password):
 		pass
+
+class ReadConfAbstract(object):
+	"""docstring for ReadConfAbstract"""
+	def fetchNamePswd(self):
+		pass
+
 
 class DecryAbstract(object):
 	"""docstring for DecryAbstract"""
@@ -30,13 +34,23 @@ class DecryAbstract(object):
 class ProcessAbstract:
 	"""docstring for ProcessAbstract"""
 	@staticmethod
-	def encryProcess(encry,name,password):
-		pass
+	def encryProcess(encry,name='',password=''):
+		"""encry is a instance of subclass of EncryAbstract """
+		if name.strip == '' or password.strip() == '':
+			name,password = infoinput()
+		name = encry.encodeValue(name)
+		password = encry.encodeValue(password,True)
+		encry.writeConf(name,password)
 
 	@staticmethod
-	def decryProcess(decry,name,password):
-		pass
-		
+	def decryProcess(decry,readconf,name=None,password=None):
+		""" decry is a instance of subclass of DecryAbstract """
+		if name==None or password==None:
+			name,password = readconf.fetchNamePswd()
+		return decry.decodeValue(name), decry.decodeValue(password,True)
+
+
+
 
 
 

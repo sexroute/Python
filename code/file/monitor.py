@@ -11,6 +11,7 @@ class _LocalVar:
     fileList = readConf.fetchFileList()
     name,password = ProcessDeal.decryProcess(decry,readConf)
 
+
 class SvnRead(object):
     """docstring for SvnRead"""
     def __init__(self):
@@ -46,6 +47,8 @@ class SvnRead(object):
                 for dataset in datasets:
                     names.append(str(dataset.getAttribute(attrib)))
         return [(names[i],i) for i in range(len(names)) if names.count(names[i])>1]
+
+
 
 
 svnRead = SvnRead()
