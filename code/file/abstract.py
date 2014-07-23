@@ -8,17 +8,50 @@ def infoinput():
 	return name,passwd
 		
 
+import ConfigParser
+
+class _PubVariable(object):
+	"""docstring for _PubVariable"""
+	infofile = "info.conf"
+	filelistfile = "filelist.list"
+
+
 class EncryAbstract(object):
 	"""docstring for EncryAbstract"""
-	# def __init__(self):
-	# 	super(EncryAbstract, self).__init__()
 	def encodeValue(self,value,reverse=False):
 		pass
 	def writeConf(self,name,password):
-		pass
+		""" writing encrypted name&password to config file """
+		# self._writepubkey()
+		with open(_PubVariable.infofile,'w') as conf, open(_PubVariable.filelistfile,'w') as ls:
+			conf.writelines(
+				"""[HADOOP-SVN-INFO]
+baseurl  = http://svn.paic.com.cn/svn/pad_hadoop/trunk
+username = %s
+password = %s
+fileList = fileList.list"""%(name,password))
+			ls.write("src/main/resources/config/Pad-dbw/pad-common/datasets.xml")
+
 
 class ReadConfAbstract(object):
 	"""docstring for ReadConfAbstract"""
+	def __init__(self):
+		super(ReadConfAbstract, self).__init__()
+		self.config = None
+
+	def getConf(self):
+		if self.config != None:
+			return config
+		try:
+		    configFile = open(_PubVariable.infofile, "r")
+		except IOError:
+		    print _PubVariable.infofile + ' is not found'
+		    sys.exit(1)
+		config = ConfigParser.ConfigParser()
+		config.readfp(configFile)
+		configFile.close()
+		return config
+
 	def fetchNamePswd(self):
 		pass
 

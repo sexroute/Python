@@ -1,4 +1,4 @@
-import sys,random,os,re,ConfigParser
+import sys,random,os,re
 from abstract import *
 
 
@@ -8,8 +8,6 @@ class _PubVariable(object):
 	SaltStart = 14
 	SaltEnd = 24
 	pubkeyfile = ".pubkey.key"
-	infofile = "info.conf"
-	filelistfile = "filelist.list"
 
 
 class Encryption(EncryAbstract):
@@ -63,39 +61,17 @@ class Encryption(EncryAbstract):
 		os.system(r'attrib +S +H +R ' + _PubVariable.pubkeyfile)
 
 	def writeConf(self,name,password):
-		""" writing encrypted name&password to config file """
 		self._writepubkey()
-		with open(_PubVariable.infofile,'w') as conf, open(_PubVariable.filelistfile,'w') as ls:
-			conf.writelines(
-				"""[HADOOP-SVN-INFO]
-baseurl  = http://svn.paic.com.cn/svn/pad_hadoop/trunk
-username = %s
-password = %s
-fileList = fileList.list"""%(name,password))
-			ls.write("src/main/resources/config/Pad-dbw/pad-common/datasets.xml")
+		super(Encryption,self).writeConf(name,password)
 
 
 class ReadConf(ReadConfAbstract):
 	"""docstring for ReadConf"""
 	def __init__(self):
 		super(ReadConf, self).__init__()
-		self.config = None
-
-	def _getConf(self):
-		if self.config != None:
-			return config
-		try:
-		    configFile = open(_PubVariable.infofile, "r")
-		except IOError:
-		    print _PubVariable.infofile + ' is not found'
-		    sys.exit(1)
-		config = ConfigParser.ConfigParser()
-		config.readfp(configFile)
-		configFile.close()
-		return config
 
 	def fetchNamePswd(self):
-		config = self._getConf()
+		config = self.getConf()
 		try:
 			name = config.get('HADOOP-SVN-INFO','username')
 			password = config.get('HADOOP-SVN-INFO','password')
@@ -106,7 +82,7 @@ class ReadConf(ReadConfAbstract):
 		return name, password
 
 	def fetchBaseUrl(self):
-		config = self._getConf()
+		config = self.getConf()
 		try:
 			baseurl = config.get('HADOOP-SVN-INFO','baseurl')
 			baseurl = baseurl.rstrip('/')
@@ -116,7 +92,7 @@ class ReadConf(ReadConfAbstract):
 		return baseurl
 
 	def fetchFileList(self):
-		config = self._getConf()
+		config = self.getConf()
 		try:
 			fileList = config.get('HADOOP-SVN-INFO','fileList')
 		except ConfigParser.NoOptionError:
@@ -125,7 +101,6 @@ class ReadConf(ReadConfAbstract):
 		with open(fileList, "r") as ls:
 			fileList = ls.readlines()
 		return fileList
-
 
 
 class Decryption(DecryAbstract):
@@ -155,7 +130,7 @@ class Decryption(DecryAbstract):
 
 
 if __name__ == '__main__':
-	ProcessAbstract.encryProcess(Encryption(),"CHENGSIQIN754","Loveyou")
+	ProcessAbstract.encryProcess(Encryption())
 
 
 

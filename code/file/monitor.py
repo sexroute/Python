@@ -1,4 +1,4 @@
-from keygen import ReadConf,ProcessDeal,Decryption,Encryption
+from keygen import ReadConf,ProcessAbstract,Decryption,Encryption
 from xml.dom.minidom import parseString, parse
 import urllib2,re
 import pprint
@@ -9,7 +9,7 @@ class _LocalVar:
     readConf = ReadConf()
     baseurl = readConf.fetchBaseUrl()
     fileList = readConf.fetchFileList()
-    name,password = ProcessDeal.decryProcess(decry,readConf)
+    name,password = ProcessAbstract.decryProcess(decry,readConf)
 
 
 class SvnRead(object):
@@ -36,7 +36,7 @@ class SvnRead(object):
         data = urllib2.urlopen(url)
         return data.read()
 
-    def report(self,tag,attrib):
+    def xmlreport(self,tag,attrib):
         names = []
         for line in _LocalVar.fileList:
             if line=="":
@@ -52,7 +52,7 @@ class SvnRead(object):
 
 
 svnRead = SvnRead()
-print svnRead.report("datasets","name")
+print svnRead.xmlreport("datasets","name")
 
 
 
