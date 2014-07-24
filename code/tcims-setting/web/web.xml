@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app><!--
+	<context-param>
+		<param-name>ServiceName</param-name>
+		<param-value>PCIS_Nets_tcims</param-value>
+	</context-param>
+	<context-param>
+		<param-name>wlsExtensionsConf</param-name>
+		<param-value>/wls/sso/Netegrity/Netegrity WebLogic Extensions 2.0.2/common/config/wlsExtensions.conf</param-value>
+	</context-param>
+	<context-param>
+		<param-name>ssoSwitchFilterLDAPConfFile</param-name>
+		<param-value>/wls/sso/ldap/smconf.conf</param-value>
+	</context-param>
+
+    --><filter>
+        <filter-name>Set Character Encoding</filter-name>
+        <filter-class>com.paic.pafa.app.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>GB2312</param-value>
+        </init-param>
+    </filter>
+    <!--<filter>
+		<filter-name>WLSHTTPBridgeFilter</filter-name>
+		<filter-class>com.netegrity.wlsextensions.ServletFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>SSOSwitchFilter</filter-name>
+		<filter-class>com.paic.pafa.sso.servlet.SSOSwitchFilter</filter-class>
+	</filter>
+
+    --><filter-mapping>
+        <filter-name>Set Character Encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping><!--
+    
+   <filter-mapping>
+		<filter-name>WLSHTTPBridgeFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>SSOSwitchFilter</filter-name>
+		<url-pattern>/login</url-pattern>
+	</filter-mapping>
+
+    --><servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>com.paic.pafa.app.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <!-- 锟斤拷锟斤拷web context锟侥硷拷 -->
+            <!-- 锟斤拷锟斤拷卸锟斤拷web-context锟斤拷锟斤拷锟侥硷拷锟斤拷锟矫空革拷英锟侥讹拷锟脚伙拷趾欧指锟�-->
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/web-context.xml,WEB-INF/web-context-um.xml,WEB-INF/web-context-common.xml,WEB-INF/web-context-option.xml,WEB-INF/web-context-campaign-sort.xml,WEB-INF/web-context-upload.xml,WEB-INF/web-context-sms-query.xml,WEB-INF/web-context-upload-secondary-org.xml,WEB-INF/web-context-file-download.xml,WEB-INF/web-context-pcxb-query.xml,WEB-INF/web-context-sk-query.xml,WEB-INF/web-context-la-query.xml,WEB-INF/web-context-shield.xml,WEB-INF/web-context-cf.xml,WEB-INF/web-context-cf-query.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet><!--
+    
+   <servlet>
+		<servlet-name>WLSBridgeServlet</servlet-name>
+		<servlet-class>com.paic.pafa.sso.servlet.PaWLSServlet</servlet-class>
+		<init-param>
+			<param-name>ssoSwitchFilterLDAPConfFile</param-name>
+			<param-value>/wls/sso/ldap/smconf.conf</param-value>
+		</init-param>
+		<run-as>
+			<role-name>NETE_WLS_HTTP_Bridge_ADMINS</role-name>
+		</run-as>
+	</servlet>
+
+	--><servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.screen</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
+	<!--<servlet-mapping>
+		<servlet-name>WLSBridgeServlet</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+
+    --><welcome-file-list>
+        <welcome-file>/main.do</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error.jsp</location>
+    </error-page>
+
+	
+	<taglib>
+		<taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
+		<taglib-location>/WEB-INF/tlds/c.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>http://java.sun.com/jstl/fmt</taglib-uri>
+		<taglib-location>/WEB-INF/tlds/fmt.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>http://www.paic.com.cn/tags-lwc</taglib-uri>
+		<taglib-location>/WEB-INF/tlds/lwc.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>http://www.pingan.com/nets/tag</taglib-uri>
+		<taglib-location>/WEB-INF/tlds/nets-tags.tld</taglib-location>
+	</taglib>
+	<taglib>
+        <taglib-uri>http://www.pingan.com/nets/tag/widgets</taglib-uri>
+        <taglib-location>/WEB-INF/tlds/nets-widgets.tld</taglib-location>
+    </taglib>
+    
+    <!-- <security-constraint>
+		<web-resource-collection>
+			<web-resource-name>war_all_pages</web-resource-name>
+			<url-pattern>*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>users</role-name>
+		</auth-constraint>
+	</security-constraint> -->
+	
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/umlogon.jsp</form-login-page>
+			<form-error-page>/UMLogonError.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+	
+	
+	<security-role>
+		<role-name>users</role-name>
+	</security-role>
+
+	<!--<security-role>
+		<role-name>NETE_WLS_HTTP_Bridge_ADMINS</role-name>
+	</security-role>
+
+--></web-app>
