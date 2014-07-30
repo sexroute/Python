@@ -7,7 +7,7 @@ sudo apt-get libxml2 libxslt1.1 python-dev
 sudo pip install lxml Scrapy 
 sudo pip install python-virtualenv 
 sudo pip install service_identity #need by pyOpenSSL 
-
+sudo pip install sinaweibopy #needed by weibo oauth2
 
 sudo apt-get install libmysqld-dev #need by MySQL-python, because of missing file: mysql_config
 sudo pip install MySQL-python

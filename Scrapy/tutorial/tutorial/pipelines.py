@@ -22,7 +22,7 @@ class TutorialPipeline(object):
 			use_unicode=True)
 
 	def process_item(self,item,spider):
-		# print "process_item: " + item['link']
+		print spider.settings.get('ITEM_PIPELINES')
 		query = self.dbpool.runInteraction(
 			self._conditional_insert,
 			item)

@@ -1,19 +1,21 @@
 import scrapy
 from tutorial.items import DmozItem
 
+from scrapy.utils.project import get_project_settings
+
 class DmozSpider(scrapy.Spider):
 	name = "dmoz"
 	allowed_domains = ["dmoz.org"]
 	start_urls = [
-		"http://www.dmoz.org/Computers/Programming/Languages/Python/Books/",
-        "http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/"
+		# "http://www.dmoz.org/Computers/Programming/Languages/Python/Books/",
+        # "http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/"
+        "https://api.weibo.com/2/statuses/user_timeline.json?screen_name=Allo&access_token=2.00XIqViCoblvpD87e9d1d4850Dtyjx"
 	]
 
 	def __init__(self, category=None, *args, **kwargs):
 		super(DmozSpider, self).__init__(*args, **kwargs)
-		self.start_urls = ['http://www.example.com/categories/%s' % category]
-		print args
-		print kwargs
+		# print args
+		# print kwargs
 
 	def parse(self, response):
 		# filename = response.url.split("/")[-2]
@@ -26,19 +28,23 @@ class DmozSpider(scrapy.Spider):
 		# 	desc = sel.xpath('text()').extract()
 		# 	print titile,link,desc
 
-		items = []
-		for sel in response.xpath('//ul/li'):
-			item = DmozItem()
-			item['titile'] = sel.xpath('a/text()').extract()
-			item['link'] = sel.xpath('a/@href').extract()
-			item['desc'] = sel.xpath('text()').extract()
+		# settings = get_project_settings()
+		# print "Your USER_AGENT is:\n%s" % (settings.get('ITEM_PIPELINES'))
+
+		# items = []
+		# for sel in response.xpath('//ul/li'):
+		# 	item = DmozItem()
+		# 	item['titile'] = sel.xpath('a/text()').extract()
+		# 	item['link'] = sel.xpath('a/@href').extract()
+		# 	item['desc'] = sel.xpath('text()').extract()
 			# yield item
 		# 	print '--------------------------parse-----------------------------------'
 		# 	print item
-		# 	items.append(item)
+			# items.append(item)
 		# return items
 
-# sel.xpath('//ul/li/a/text()').extract()
+		print response.body
+
 
 
 
