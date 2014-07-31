@@ -3,7 +3,19 @@ website:
 	http://www.cnblogs.com/lchd/p/3820968.html
 	http://www.sharejs.com/codes/python/8394
 	https://groups.google.com/forum/#!topic/scrapy-users/NPo4NB5peUU
-	https://www.google.com.hk/search?q=adbapi.ConnectionPool&oq=adbapi.ConnectionPool&aqs=chrome..69i57.148j0j4&sourceid=chrome&es_sm=91&ie=UTF-8&gws_rd=ssl
+	https://www.google.com.hk/search?q=adbapi.ConnectionPool&oq=adbapi.ConnectionPsool&aqs=chrome..69i57.148j0j4&sourceid=chrome&es_sm=91&ie=UTF-8&gws_rd=ssl
 
 	http://www.sharejs.com/codes/python/8394
+
+	http://redis.readthedocs.org/en/latest/topic/cluster-tutorial.html
+	http://www.searchdatabase.com.cn/showcontent_72562.htm
 	
+
+
+http://192.168.1.10:8080/json/index.json
+
+
+
+virtualenv vs buildout
+fabric 部署
+supervisor

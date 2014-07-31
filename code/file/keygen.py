@@ -130,7 +130,7 @@ class Decryption(DecryAbstract):
 
 
 if __name__ == '__main__':
-	ProcessAbstract.encryProcess(Encryption())
+	ProcessAbstract.encryProcess(Encryption(),'CHENGSIQIN754','12345')
 
 
 

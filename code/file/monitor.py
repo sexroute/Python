@@ -11,6 +11,9 @@ class _LocalVar:
     fileList = readConf.fetchFileList()
     name,password = ProcessAbstract.decryProcess(decry,readConf)
 
+print _LocalVar.name
+print _LocalVar.password
+
 
 class SvnRead(object):
     """docstring for SvnRead"""
@@ -51,8 +54,8 @@ class SvnRead(object):
 
 
 
-svnRead = SvnRead()
-print svnRead.xmlreport("datasets","name")
+# svnRead = SvnRead()
+# print svnRead.xmlreport("datasets","name")
 
 
 
