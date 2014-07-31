@@ -37,7 +37,11 @@ function virtualenv_set(){
 	export PROJECT_HOME=$HOME/Devel
 	source /usr/local/bin/virtualenvwrapper.sh
 
-	setvirtualenvproject /home/luxe/.virtualenvs/weibo/ /home/luxe/Devel/weibo/
+
+	mkdir ~/Devel
+	mkvirtualenv env-test01
+	mkproject env-test01 
+	setvirtualenvproject /home/luxe/.virtualenvs/env-test01 $(pwd)
 }
 
 function mysql_set(){
@@ -53,9 +57,11 @@ until [ $# -eq 0 ]; do
 		;;
 		dev)
 		dev_set
+		exit
 		;;
 		virtualenv)
-		echo virtualenv_set
+		virtualenv_set($2)
+		exit
 		;;
 		mysql)
 		echo mysql_set
