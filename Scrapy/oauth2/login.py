@@ -4,8 +4,8 @@ import urllib
 postdata = {
         "entry": "weibo",
         "url": "http://weibo.com/ajaxlogin.php?framelogin=1&callback=parent.sinaSSOController.feedBackUrlCallBack",
-        "username": "SiQ.Unix@gmail.com",
-        "password": "2012Wb",
+        "username": "",
+        "password": "",
         }
 
 headers = {
