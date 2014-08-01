@@ -32,5 +32,5 @@ def GetCode(userid,passwd):
     print resp.read()
     return resp.geturl()[-32:]
 if __name__ == "__main__":
-    print GetCode('SiQ.Unix@gmail.com','')
+    print GetCode('','')
 
