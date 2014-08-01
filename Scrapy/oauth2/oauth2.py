@@ -23,14 +23,16 @@ def GetCode(userid,passwd):
         "Referer":referer_url,
         "Connection":"keep-alive"
     }
+
     req  = urllib2.Request(
         url = AUTH_URL,
         data = urllib.urlencode(postdata),
         headers = headers
     )
+
     resp = urllib2.urlopen(req)
     print resp.read()
     return resp.geturl()[-32:]
 if __name__ == "__main__":
-    print GetCode('SiQ.Unix@gmail.com','2012Wb')
+    print GetCode('SiQ.Unix@gmail.com','')
 

@@ -1,14 +1,18 @@
+# -*- coding: utf-8 -*-
+
 import scrapy
 from crawler.items import CrawlerItem
 
 from scrapy.utils.project import get_project_settings
 
+
 class WbSpider(scrapy.Spider):
 	name = "Weibo"
 	allowed_domains = ["weibo.com"]
 	start_urls = [
-		"http://www.dmoz.org/Computers/Programming/Languages/Python/Books/",
-        "http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/"
+		"http://192.168.1.108:8080/json/index.json"
+		# "http://www.dmoz.org/Computers/Programming/Languages/Python/Books/",
+  		# "http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/"
         # "https://api.weibo.com/2/statuses/user_timeline.json?screen_name=-Luxe&access_token=2.00XIqViCoblvpD87e9d1d4850Dtyjx"
 	]
 
@@ -16,6 +20,8 @@ class WbSpider(scrapy.Spider):
 		super(WbSpider, self).__init__(*args, **kwargs)
 		# print args
 		# print kwargs
+
+	
 
 	def parse(self, response):
 		# filename = response.url.split("/")[-2]
@@ -43,7 +49,16 @@ class WbSpider(scrapy.Spider):
 			# items.append(item)
 		# return items
 
+		# print response.body
+		item = CrawlerItem()
+		item['titile'] = 'crawl titile'
+		item['link'] = 'crawl link'
+		item['desc'] = 'crawl desc'
+		return item
+
+		# test proxy
 		print response.body
+
 
 
 

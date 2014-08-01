@@ -17,7 +17,7 @@ if [ $# = 0 ]; then
 fi
 
 function dev_set(){
-	sudo apt-get install mysql-server
+	sudo apt-get install mysql-server mysql-clinet
 	sudo apt-get install python 
 	sudo apt-get install python-pip 
 	sudo apt-get libxml2 libxslt1.1 python-dev
@@ -45,7 +45,14 @@ function virtualenv_set(){
 }
 
 function mysql_set(){
-	sudo start mysql 
+	sudo start mysql
+	mysql -uroot -proot
+	grant all privileges on mysql.* to 'root'@'%';
+	grant all privileges on *.* to 'root'@'%';
+	set password for 'root'@'%'=password('root');
+	flush privileges;
+	exit
+	sudo restart mysql
 }
 
 

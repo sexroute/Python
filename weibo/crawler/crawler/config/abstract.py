@@ -1,3 +1,6 @@
+import sys
+import ConfigParser
+import re
 
 def infoinput():
 	name = raw_input("Please input UM: ").strip()
@@ -13,44 +16,18 @@ class _PubVariable(object):
 	infofile = "info.conf"
 
 
-
-import ConfigParser
-import re
-
 class EncryAbstract(object):
 	"""docstring for EncryAbstract"""
 	def encodeValue(self,value,reverse=False):
 		pass
 	def outputValue(self,name,password):
 		""" writing encrypted name&password to config file """
-		with open('info.conf','r+') as f:
+		with open(_PubVariable.infofile,'r+') as f:
 			content = f.read()
 			content = re.sub('USER_NAME =.*', 'USER_NAME = '+name, content)
 			content = re.sub('PASSWORD =.*','PASSWORD = '+password, content)
 			f.seek(0)
 			f.write(content)
-
-class ReadConfAbstract(object):
-	"""docstring for ReadConfAbstract"""
-	def __init__(self):
-		super(ReadConfAbstract, self).__init__()
-		self.config = None
-
-	def getConf(self):
-		if self.config != None:
-			return self.config
-		try:
-		    configFile = open(_PubVariable.infofile, "r")
-		except IOError:
-		    print _PubVariable.infofile + ' is not found'
-		    sys.exit(1)
-		config = ConfigParser.ConfigParser()
-		config.readfp(configFile)
-		configFile.close()
-		return config
-
-	def fetchNamePswd(self):
-		pass
 
 
 class DecryAbstract(object):
@@ -58,6 +35,30 @@ class DecryAbstract(object):
 	def __init__(self):
 		super(DecryAbstract, self).__init__()
 	def decodeValue(self,value,reverse=False):
+		pass
+
+
+class ReadConfAbstract(object):
+	"""docstring for ReadConfAbstract"""
+	def __init__(self):
+		super(ReadConfAbstract, self).__init__()
+		# self.config = None
+		self.config = None
+		self.__getConf()
+
+	def __getConf(self):
+		if self.config != None:
+			return self.config
+		try:
+		    configFile = open(_PubVariable.infofile, "r")
+		except IOError:
+		    print _PubVariable.infofile + ' is not found'
+		    sys.exit(1)
+		self.config = ConfigParser.ConfigParser()
+		self.config.readfp(configFile)
+		configFile.close()
+
+	def fetchNamePswd(self):
 		pass
 
 

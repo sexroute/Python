@@ -1,16 +1,15 @@
-from keygen import ReadConf,ProcessAbstract,Decryption,Encryption
-from xml.dom.minidom import parseString, parse
-import urllib2,re
-import pprint
-
+from keygen import *
+from ReadConf import *
 
 class _LocalVar:
     decry = Decryption()
     readConf = ReadConf()
-    
+    appkey,appsecret,classbackurl = readConf.fetchWbOauth2()
+    db,dbuser,dbpassword = readConf.fetchMysql()
     name,password = ProcessAbstract.decryProcess(decry,readConf)
 
-print _LocalVar.name
-print _LocalVar.password
-
-
+decry = Decryption()
+readConf = ReadConf()
+# print readConf.fetchWbOauth2()
+# print readConf.fetchMysql()
+# print ProcessAbstract.decryProcess(decry,readConf)

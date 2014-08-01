@@ -8,7 +8,6 @@ class _PubVariable(object):
 	RandomRange = 128
 	SaltStart = 14
 	SaltEnd = 24
-	infofile = "info.conf"
 	pubkeyfile = ".pubkey.key"
 
 
@@ -64,34 +63,6 @@ class Encryption(EncryAbstract):
 		self._writepubkey()
 		super(Encryption,self).outputValue(name,password)
 
-
-
-class ReadConf(ReadConfAbstract):
-	"""docstring for ReadConf"""
-	def __init__(self):
-		super(ReadConf, self).__init__()
-
-	def fetchNamePswd(self):
-		config = self.getConf()
-		try:
-			name = config.get('WEIBO-OAuth2','USER_NAME')
-			password = config.get('WEIBO-OAuth2','PASSWORD')
-		except ConfigParser.NoOptionError:
-		    print 'value is not found under section WEIBO-OAuth2 in ' + _PubVariable.infofile + '.'
-		    raw_input('')
-		    sys.exit()
-		return name, password
-
-	def fetchWbOauth(self):
-		config = self.getConf()
-		try:
-			appkey = config.get('WEIBO-OAuth2','APP_KEY')
-			appsecret = config.get('WEIBO-OAuth2','APP_SECRET')
-			classbackurl = config.get('WEIBO-OAuth2','CALLBACK_URL')
-		except ConfigParser.NoOptionError:
-			print 'value is not found under section WEIBO-OAuth2 in ' + _PubVariable.infofile + '.'
-			sys.exit()
-		return appkey,appsecret,classbackurl
 
 
 class Decryption(DecryAbstract):
