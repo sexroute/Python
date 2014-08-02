@@ -36,8 +36,6 @@ function dev_set(){
 	# apt-get install python-pip 
 	# apt-get install libxml2 libxslt1.1 python-dev
 	# apt-get install libmysqld-dev #need by MySQL-python, because of missing file: mysql_config
-
-	
 }
 
 
@@ -60,14 +58,13 @@ function virtualenv_set(){
 	mkproject $1
 	setvirtualenvproject /home/luxe/.virtualenvs/$1 $(pwd)
 	workon $1
-
 	# lxml dependent on libxml2,libxslt1.1,python-dev
 	# Scrapy dependent on lxml,openssl
-	# pip install lxml Scrapy 
-	# pip install virtualenv virtualenvwrapper
-	# pip install service_identity #need by pyOpenSSL 
-	# pip install sinaweibopy #needed by weibo oauth2
-	# pip install MySQL-python
+	pip install lxml Scrapy 
+	pip install virtualenv virtualenvwrapper
+	pip install service_identity #need by pyOpenSSL 
+	pip install sinaweibopy #needed by weibo oauth2
+	pip install MySQL-python
 }
 
 function mysql_set(){
@@ -88,14 +85,20 @@ until [ $# -eq 0 ]; do
 		print_usage
 		exit
 		;;
-		dev)
+		-dev)
 		dev_set
 		;;
-		virtualenv)
+		-virtualenv)
 		virtualenv_set $2
 		;;
-		mysql)
+		-mysql)
 		echo mysql_set
+		;;
+		-all)
+		dev
+		virtualenv_set $2
+		mysql_set
+		exit
 		;;
 	esac
 	shift
