@@ -13,7 +13,8 @@ class WbSpider(scrapy.Spider):
 		# "http://192.168.1.108:8080/json/index.json"
 		# "http://www.dmoz.org/Computers/Programming/Languages/Python/Books/",
   		# "http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/"
-        "https://api.weibo.com/2/statuses/user_timeline.json?screen_name=-Luxe&access_token=2.00XIqViCoblvpD87e9d1d4850Dtyjx"
+        # "https://api.weibo.com/2/statuses/user_timeline.json?screen_name=-Luxe&access_token=2.00XIqViCoblvpD87e9d1d4850Dtyjx"
+        "http://scrapy.org"
 	]
 
 	def __init__(self, category=None, *args, **kwargs):

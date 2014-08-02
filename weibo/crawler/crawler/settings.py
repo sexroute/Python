@@ -14,12 +14,14 @@ SPIDER_MODULES = ['crawler.spiders']
 NEWSPIDER_MODULE = 'crawler.spiders'
 
 ITEM_PIPELINES = {
-	'crawler.pipelines.CrawlerPipeline':1
+	'crawler.pipelines.mysql.CrawlerPipeline':1
 }
 
 DOWNLOADER_MIDDLEWARES = {
 	'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 2,
-	'crawler.middlewares.ProxyMiddleware': 3
+	'crawler.middleware.proxymiddlewares.ProxyMiddleware': 3
 }
+
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'crawler (+http://www.yourdomain.com)'

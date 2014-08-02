@@ -17,6 +17,8 @@ class _LocalVar:
     db,dbuser,dbpassword = readConf.fetchMysql()
 
 
+
+
 class CrawlerPipeline(object):
 	def __init__(self):
 		self.dbpool = adbapi.ConnectionPool(

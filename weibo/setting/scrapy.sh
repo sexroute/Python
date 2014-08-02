@@ -15,4 +15,9 @@ workon weibo
 
 
 
-sed -i 's/properties/property/g' text.sh
+
+
+
+
+
+

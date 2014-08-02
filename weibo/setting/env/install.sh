@@ -19,7 +19,7 @@ fi
 function apt_install(){
 	need=$1
 	i=0
-	echo ${need[*]}
+	echo "${need[*]}"
 	until [ ${#need[@]} -le $i ]; do
 		if ! dpkg -l | grep -q ${need[i]} ; then
 			apt-get install ${need[i]}
@@ -40,14 +40,14 @@ function dev_set(){
 
 
 function virtualenv_set(){
-	if grep -q 'WORKON_HOME' .profile && grep -q 'PROJECT_HOME' .profile; then
+	if grep -q 'WORKON_HOME' ~/.profile && grep -q 'PROJECT_HOME' ~/.profile; then
 		:
-	elif [ ! -f .profile ]; then
-		touch .profile
+	elif [ ! -f ~/.profile ]; then
+		touch ~/.profile
 	else
 		echo 'export WORKON_HOME=$HOME/.virtualenvs
 	export PROJECT_HOME=$HOME/Devel
-	source /usr/local/bin/virtualenvwrapper.sh' >> .profile
+	source /usr/local/bin/virtualenvwrapper.sh' >> ~/.profile
 	fi
 
 	. ~/.profile
@@ -65,6 +65,21 @@ function virtualenv_set(){
 	pip install service_identity #need by pyOpenSSL 
 	pip install sinaweibopy #needed by weibo oauth2
 	pip install MySQL-python
+}
+
+function nginx_proxy(){
+	apt-get install nginx 
+	echo 'resolver 8.8.8.8;
+server {
+    listen 8088;
+    location / {
+        proxy_pass http://$http_host$request_uri;
+    }
+}' > /etc/nginx/conf.d/custom_proxy.conf
+	sudo service nginx restart
+	export http_proxy=http://192.168.1.124:8088
+	# . ~/.profile
+
 }
 
 function mysql_set(){
@@ -91,8 +106,11 @@ until [ $# -eq 0 ]; do
 		-virtualenv)
 		virtualenv_set $2
 		;;
+		-proxy)
+		nginx_proxy
+		;;
 		-mysql)
-		echo mysql_set
+		echo "mysql_set"
 		;;
 		-all)
 		dev
