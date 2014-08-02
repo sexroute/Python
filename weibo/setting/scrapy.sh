@@ -12,3 +12,7 @@ curl http://192.168.1.108:8080/json/index.json
 
 
 workon weibo
+
+
+
+sed -i 's/properties/property/g' text.sh
