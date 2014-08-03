@@ -27,5 +27,12 @@ MYSQL_DB = 'test'
 MYQSL_DB_USER = 'root'
 MYQSL_DB_PASSWORD = 'root'
 
+DOWNLOAD_DELAY = 1
+CONCURRENT_REQUESTS = 16
+DEPTH_LIMIT = 0
+
+
+TEST_STR = 'ABC'
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'crawler (+http://www.yourdomain.com)'

@@ -7,3 +7,7 @@ def uprint(obj):
 def uprint02(obj):
 	str_obj = str(obj).replace('u\'','\'').decode('unicode-escape')
 	print str_obj
+
+def byteprint(obj):
+	print json.dumps(obj,encoding='utf-8',ensure_ascii=False)
+

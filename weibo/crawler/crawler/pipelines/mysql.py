@@ -36,24 +36,10 @@ class CrawlerPipeline(object):
 	def process_item(self, item, spider):
 		# print spider.settings.get('MYSQL_DB')
 		if type(item) == CrawlerItem:
-			# print '--------------------CrawlerItem-----------------------'
-			# encodeconvert.uprint02(item)
 			self.dbpool.runInteraction(self.tweet_inset,item).addErrback(self.handle_error)
 			return item
 		elif type(item) == CommentItem:
-			# print '--------------------CommentItem-----------------------'
-			# encodeconvert.uprint02(item)
 			self.dbpool.runInteraction(self.comment_inset,item).addErrback(self.handle_error)
-		# print item.get('comment')
-		# print item
-		# lprint(item)
-		
-		# print json.dumps(item,encoding='utf-8')
-		# print item
-		# query = self.dbpool.runInteraction(
-		# 	self._conditional_insert,
-		# 	item)
-		# query.addErrback(self.handle_error)
 		# return item
 
 	def tweet_inset(self,tx,item):
@@ -76,17 +62,4 @@ class CrawlerPipeline(object):
 
 	def handle_error(self,e):
 		log.err(e)
-
-
-
-	def _conditional_insert(self,tx,item):
-		tx.execute("select * from dmoz where link = %s",(item['link'],))
-		result = tx.fetchone()
-		if result:
-			log.msg("Item already stored in db: '%s'" % item, level=log.DEBUG)
-		else:
-			tx.execute("insert into dmoz (titile,link,description,created) values (%s,%s,%s,%s)",(item['titile'],item['link'],item['desc'],datetime.now()))
-			log.msg("Item stored in db: %s " % item, level=log.DEBUG)
-
-
 
