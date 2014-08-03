@@ -9,6 +9,14 @@ import scrapy
 
 
 class CrawlerItem(scrapy.Item):
-    titile = scrapy.Field()
-    link = scrapy.Field()
-    desc = scrapy.Field()
+    id = scrapy.Field()
+    tweet = scrapy.Field()
+    retweet = scrapy.Field()
+    img = scrapy.Field()
+    # created_date = scrapy.Field
+
+class CommentItem(scrapy.Item):
+	id = scrapy.Field()
+	comment = scrapy.Field()
+	# created_date = scrapy.Field
+
