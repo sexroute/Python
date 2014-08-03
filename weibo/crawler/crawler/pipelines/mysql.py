@@ -11,38 +11,37 @@ import datetime
 import MySQLdb.cursors
 
 
-from crawler.config.readconf import ReadConf
-class _LocalVar:
-    readConf = ReadConf()
-    db,dbuser,dbpassword = readConf.fetchMysql()
-
-
-
-
 class CrawlerPipeline(object):
-	def __init__(self):
+	def __init__(self,db,dbuser,dbpassword):
 		self.dbpool = adbapi.ConnectionPool(
 			'MySQLdb',
-			db=_LocalVar.db,
-			user=_LocalVar.dbuser,
-			passwd=_LocalVar.dbpassword,
+			db=db,
+			user=dbuser,
+			passwd=dbpassword,
 			cursorclass=MySQLdb.cursors.DictCursor,
 			charset='utf8', 
 			use_unicode=True)
 
+	@classmethod
+	def from_crawler(cls, crawler):
+		db = crawler.settings.get('MYSQL_DB')
+		dbuser = crawler.settings.get('MYQSL_DB_USER')
+		dbpassword = crawler.settings.get('MYQSL_DB_PASSWORD')
+		return cls(db,dbuser,dbpassword)
+
+
 	def process_item(self, item, spider):
-		# print '-----------------------------pipeline--------------------------------'
-		# print spider.settings.get('ITEM_PIPELINES')
+		# print spider.settings.get('MYSQL_DB')
+		print '--------------------process_item-----------------------'
+		print item
 		query = self.dbpool.runInteraction(
 			self._conditional_insert,
 			item)
 		query.addErrback(self.handle_error)
 		return item
 
-	def _conditional_insert(self,tx,item):
-		print '-----------------------------_conditional_insert--------------------------------'
-		print item
 
+	def _conditional_insert(self,tx,item):
 		tx.execute("select * from dmoz where link = %s",(item['link'],))
 		result = tx.fetchone()
 		if result:

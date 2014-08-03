@@ -75,7 +75,7 @@ server {
     location / {
         proxy_pass http://$http_host$request_uri;
     }
-}' > /etc/nginx/conf.d/custom_proxy.conf
+}' >> /etc/nginx/conf.d/custom_proxy.conf
 	sudo service nginx restart
 	export http_proxy=http://192.168.1.124:8088
 	# . ~/.profile

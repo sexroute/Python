@@ -17,11 +17,15 @@ ITEM_PIPELINES = {
 	'crawler.pipelines.mysql.CrawlerPipeline':1
 }
 
-DOWNLOADER_MIDDLEWARES = {
-	'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 2,
-	'crawler.middleware.proxymiddlewares.ProxyMiddleware': 3
-}
+# DOWNLOADER_MIDDLEWARES = {
+# 	'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 2,
+# 	'crawler.middleware.proxymiddlewares.ProxyMiddleware': 3
+# }
 
+
+MYSQL_DB = 'test'
+MYQSL_DB_USER = 'root'
+MYQSL_DB_PASSWORD = 'root'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'crawler (+http://www.yourdomain.com)'

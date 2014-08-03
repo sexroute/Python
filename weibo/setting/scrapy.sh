@@ -13,9 +13,9 @@ curl http://192.168.1.108:8080/json/index.json
 
 workon weibo
 
+scrapy crawl Weibo -a name=-Luxe --nolog
 
-
-
+seq 10 | xargs -i clear
 
 
 

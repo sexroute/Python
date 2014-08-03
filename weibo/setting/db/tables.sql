@@ -8,5 +8,4 @@ CREATE TABLE dmoz (
    created DATETIME
 )ENGINE=InnoDB; 
 
-
 select * from dmoz;

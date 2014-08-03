@@ -100,7 +100,9 @@ class Login:
 
     def login(self, filename):
         # pdb.set_trace()
-        username, pwd = Login.get_account(filename)
+        # username, pwd = Login.get_account(filename)
+        username = 'SiQ.Unix@gmail.com'
+        pwd = '2012Wb'
         url = 'http://login.sina.com.cn/sso/login.php?client=ssologin.js(v1.4.4)'
         try:
             servertime, nonce, pubkey, rsakv = self.get_servertime(username)
