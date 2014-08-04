@@ -25,11 +25,11 @@ urllib2.install_opener(opener)
 
 
 
-def prelogin():
+def prelogin(su):
     params = {
         'entry': 'weibo',
         'callback': 'sinaSSOController.preloginCallBack',
-        'su': 'xeoncode@gmail.cn',
+        'su': su,
         'rsakt': 'mod',
         'checkpin': '1',
         'client': 'ssologin.js(v1.4.18)',
@@ -61,10 +61,9 @@ def encrypassword(password,servertime,nonce,pubkey):
 
 
 def wb_login():
-    servertime,nonce,pubkey,rsakv = prelogin()
-    # print cj
-    su = encryname('')
-    sp = encrypassword('',servertime,nonce,pubkey)
+    su = encryname('@pingan.com.cn')
+    servertime,nonce,pubkey,rsakv = prelogin(su)
+    sp = encrypassword('00000a',servertime,nonce,pubkey)
     postdata = {
         'entry': 'weibo',
         'gateway': '1',
@@ -88,14 +87,18 @@ def wb_login():
     }
     url_login = 'http://login.sina.com.cn/sso/login.php?client=ssologin.js(v1.4.18)'
     request = urllib2.Request(url_login,data=urllib.urlencode(postdata),headers=headers)
-    print urllib2.urlopen(request).read()
-    
-    # url_final = re.search("location\.replace\(['|\"](.*?)['|\"]\)",urllib2.urlopen(request).read()).group(1)
-    # request = urllib2.Request(url_final,headers=headers)
     # print urllib2.urlopen(request).read()
-    # print cj
+    print cj
+    
+    url_final = re.search("location\.replace\(['|\"](.*?)['|\"]\)",urllib2.urlopen(request).read()).group(1)
+    # request = urllib2.Request(url_final,headers=headers)
+    # print urllib2.urlopen(url_final).read()
+    print cj
 
-    # url_home = 'http://weibo.com/u/2490013033'
+    url_home = 'http://weibo.com/avnpc'
     # print urllib2.urlopen(url_home).read()
+    with open(r'D:\allo.html','w') as f:
+        f.write(urllib2.urlopen(url_home).read())
+
 
 wb_login()

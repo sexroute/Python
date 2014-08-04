@@ -10,19 +10,19 @@ import binascii
 
 
 proxies = {
-    'http': 'http://CHENGSIQIN754:77777Luxe@10.37.84.114:8080',
-    'https': 'http://CHENGSIQIN754:77777Luxe@10.37.84.114:8080'
+    'http': 'http://CHENGSIQIN754:@10.37.84.114:8080',
+    'https': 'http://CHENGSIQIN754:@10.37.84.114:8080'
 }
 
 headers = {
 	'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36'
 }
 
-def prelogin():
+def prelogin(su):
 	params = {
 		'entry': 'weibo',
 		'callback': 'sinaSSOController.preloginCallBack',
-		'su': 'xeoncode@gmail.cn',
+		'su': su,
 		'rsakt': 'mod',
 		'checkpin': '1',
 		'client': 'ssologin.js(v1.4.18)',
@@ -55,10 +55,10 @@ def encrypassword(password,servertime,nonce,pubkey):
 
 
 
-servertime,nonce,pubkey,rsakv = prelogin()
-su = encryname('@gmail.com')
+su = encryname('@pingan.com.cn')
+servertime,nonce,pubkey,rsakv = prelogin(su)
 # print encryname('@gmail.com')
-sp = encrypassword('',servertime,nonce,pubkey)
+sp = encrypassword('00000a',servertime,nonce,pubkey)
 
 postdata = {
 	'entry': 'weibo',
