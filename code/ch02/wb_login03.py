@@ -8,10 +8,6 @@ import urllib
 import rsa
 import binascii
 
-# import sys
-# reload(sys)
-# sys.setdefaultencoding('UTF-8')
-
 
 proxies = {
     'http': 'http://CHENGSIQIN754:77777Luxe@10.37.84.114:8080',
