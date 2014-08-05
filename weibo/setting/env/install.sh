@@ -65,6 +65,7 @@ function virtualenv_set(){
 	pip install service_identity #need by pyOpenSSL 
 	pip install sinaweibopy #needed by weibo oauth2
 	pip install MySQL-python
+	pip install mock
 }
 
 function nginx_proxy(){

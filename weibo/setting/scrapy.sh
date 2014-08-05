@@ -22,3 +22,9 @@ seq 10 | xargs -i clear
 
 
 
+
+
+command:
+scrapy crawl Weibo --nolog -a name=-Luxe -a delay=1 -s CONCURRENT_REQUESTS=1 -s DEPTH_LIMIT=3
+
+

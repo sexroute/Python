@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 # from scrapy.utils.project import get_project_settings
 import scrapy
 import json
 from scrapy.settings import Settings
-from scrapy.http import Request
+# from scrapy.http import Request
+from scrapy import Request
 from crawler.items import CrawlerItem,CommentItem
 from crawler.config.keygen import *
 from crawler.config import oauth2
@@ -39,16 +42,21 @@ class WbSpider(scrapy.Spider):
 			print "name or url must have one."
 			exit(0)
 		self.username = kwargs.get('name')
-		# self.download_delay = float(kwargs.get('delay') if kwargs.get('delay')!=None else 0)
-		Settings.set('DOWNLOAD_DELAY',float(kwargs.get('delay') if kwargs.get('delay')!=None else 0))
-		Settings.set('CONCURRENT_REQUESTS',int(kwargs.get('thread') if kwargs.get('thread')!=None else 16))
-		Settings.set('DEPTH_LIMIT',int(kwargs.get('depth') if kwargs.get('depth')!=None else 0))
+		self.download_delay = float(kwargs.get('delay') if kwargs.get('delay')!=None else 0)
+		# Settings = Settings()
+		# self.Settings.set('DOWNLOAD_DELAY',float(kwargs.get('delay') if kwargs.get('delay')!=None else 0))
+		# self.Settings.set('CONCURRENT_REQUESTS',int(kwargs.get('thread') if kwargs.get('thread')!=None else 16))
+		# self.Settings.set('DEPTH_LIMIT',int(kwargs.get('depth') if kwargs.get('depth')!=None else 0))
+
 		self.dig_depth = 1
 		self.access_token = oauth2.getAccessToken()
-		self.allowed_domains = ["weibo.com"]
+		# self.allowed_domains = ["weibo.com"]
+		self.allowed_domains = ['woaidu.org']
 		self.start_urls = [
-			"https://api.weibo.com/2/statuses/user_timeline.json?screen_name=%s&page=%s&count=1&access_token=%s" % (self.username,self.dig_depth,self.access_token)
-			# "http://www.woaidu.org/sitemap_1.html"
+			# "https://api.weibo.com/2/statuses/user_timeline.json?screen_name=%s&page=%s&count=1&access_token=%s" % (self.username,self.dig_depth,self.access_token)
+			"http://www.woaidu.org/sitemap_1.html"
+			# "http://www.example.coms"
+			# "http://www.baidu.com"
 		]
 
 
@@ -89,10 +97,21 @@ class WbSpider(scrapy.Spider):
 		# print response.encoding
 
 		print time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+		self.dig_depth += 1
+		next_link = "http://www.woaidu.org/sitemap_%s.html" % (self.dig_depth)
+		if next_link:
+			yield Request(url=next_link, callback=self.parse)
+		# self.tweet_parse(response)
 
-		if self.dig_depth == 11:
-			return
 
+	def woaidu_parse(self,response):
+		self.dig_depth += 1
+		next_link = "http://www.woaidu.org/sitemap_%s.html" % (self.dig_depth)
+		if next_link:
+			yield Request(url=next_link, callback=self.woaidu_parse)
+
+
+	def tweet_parse(self,response):
 		tojson = json.loads(response.body_as_unicode())
 		
 		for l in tojson.get('statuses'):
@@ -112,11 +131,9 @@ class WbSpider(scrapy.Spider):
 				comment_link = "https://api.weibo.com/2/comments/show.json?id=%s&access_token=%s" % (id,self.access_token)
 				yield Request(url=comment_link, callback=self.comment_parse)
 
-
 				self.dig_depth += 1
 				next_link = "https://api.weibo.com/2/statuses/user_timeline.json?screen_name=%s&page=%s&count=1&access_token=%s" % (self.username,self.dig_depth,self.access_token)
 				yield Request(url=next_link, callback=self.parse)
-
 
 
 	def comment_parse(self,response):
