@@ -37,6 +37,7 @@ Icon
 .Trashes
 
 
-info.conf
 github.com
 *.pyc
+.pyc
+.pubkey.key

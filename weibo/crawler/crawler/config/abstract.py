@@ -1,6 +1,7 @@
 import sys
 import ConfigParser
 import re
+import os
 
 def infoinput():
 	name = raw_input("Please input UM: ").strip()
@@ -13,7 +14,7 @@ def infoinput():
 
 class _PubVariable(object):
 	"""docstring for _PubVariable"""
-	infofile = "info.conf"
+	infofile = os.path.join(os.path.abspath(os.path.dirname(__file__)), "info.conf")
 
 
 class EncryAbstract(object):

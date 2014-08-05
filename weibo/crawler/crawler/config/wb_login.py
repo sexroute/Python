@@ -8,18 +8,14 @@ import json
 import rsa
 import binascii
 
-def byteprint(obj):
-    print json.dumps(obj,encoding='utf-8',ensure_ascii=False)
-
-
-
-proxy_hadler = urllib2.ProxyHandler({'http':'http://10.37.84.114:8080'})
+# proxy_hadler = urllib2.ProxyHandler({'http':'http://10.37.84.114:8080'})
 # proxy_opener = urllib2.build_opener(proxy_hadler)
 # urllib2.install_opener(proxy_opener)
 
 cj = cookielib.LWPCookieJar()
 cookie_support = urllib2.HTTPCookieProcessor(cj)
-opener = urllib2.build_opener(proxy_hadler,cookie_support,urllib2.HTTPHandler)
+# opener = urllib2.build_opener(proxy_hadler,cookie_support,urllib2.HTTPHandler)
+opener = urllib2.build_opener(cookie_support,urllib2.HTTPHandler)
 urllib2.install_opener(opener)
 
 
@@ -59,7 +55,7 @@ def encrypassword(password,servertime,nonce,pubkey):
 
 
 def wb_login():
-    su = encryname('@pingan.com.cn')
+    su = encryname('1691234347@qq.com')
     servertime,nonce,pubkey,rsakv = prelogin(su)
     sp = encrypassword('00000a',servertime,nonce,pubkey)
     postdata = {
@@ -81,23 +77,23 @@ def wb_login():
         'returntype': 'META'
     }
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36'
     }
     url_login = 'http://login.sina.com.cn/sso/login.php?client=ssologin.js(v1.4.18)'
     request = urllib2.Request(url_login,data=urllib.urlencode(postdata),headers=headers)
-    # print urllib2.urlopen(request).read()
-    print cj
     
     url_final = re.search("location\.replace\(['|\"](.*?)['|\"]\)",urllib2.urlopen(request).read()).group(1)
-    # request = urllib2.Request(url_final,headers=headers)
-    # print urllib2.urlopen(url_final).read()
-    print cj
+    request = urllib2.Request(url_final,headers=headers)
+    urllib2.urlopen(request)
+    # print cj
 
     url_home = 'http://weibo.com/avnpc'
     # print urllib2.urlopen(url_home).read()
-    with open(r'D:\allo.html','w') as f:
-        f.write(urllib2.urlopen(url_home).read())
+    # with open(r'D:\allo.html','w') as f:
+    #     f.write(urllib2.urlopen(url_home).read())
+
 if __name__ == '__main__':
     wb_login()
+
 
 

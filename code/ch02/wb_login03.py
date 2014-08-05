@@ -9,10 +9,10 @@ import rsa
 import binascii
 
 
-proxies = {
-    'http': 'http://CHENGSIQIN754:@10.37.84.114:8080',
-    'https': 'http://CHENGSIQIN754:@10.37.84.114:8080'
-}
+# proxies = {
+#     'http': 'http://:@10.37.84.114:8080',
+#     'https': 'http://:@10.37.84.114:8080'
+# }
 
 headers = {
 	'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36'
@@ -29,7 +29,8 @@ def prelogin(su):
 		'_': str(time.time()*100)
 	}
 	url_prelogin = 'http://login.sina.com.cn/sso/prelogin.php'
-	r = requests.get(url_prelogin,params=params,proxies=proxies,headers=headers)
+	# r = requests.get(url_prelogin,params=params,proxies=proxies,headers=headers)
+	r = requests.get(url_prelogin,params=params,headers=headers)
 	# url_prelogin = "http://login.sina.com.cn/sso/prelogin.php&client=ssologin.js(v1.4.18)&_=%s" % str(time.time())
 	# print r.url
 	data = re.search('\((.*)\)',r.text).group(1)
@@ -81,19 +82,27 @@ postdata = {
 
 s = requests.Session()
 url_login = 'http://login.sina.com.cn/sso/login.php?client=ssologin.js(v1.4.18)'
-r = s.post(url_login,data=postdata,proxies=proxies,headers=headers)
+# r = s.post(url_login,data=postdata,proxies=proxies,headers=headers)
+r = s.post(url_login,data=postdata,headers=headers)
 # print r.content
 # print s.cookies
 
 
 url_final = re.search("location\.replace\('(.*?)'\)",r.content).group(1)
-r = s.get(url_final,proxies=proxies,headers=headers)
+# r = s.get(url_final,proxies=proxies,headers=headers)
+r = s.get(url_final,headers=headers)
 # print s.cookies
 
 
 url_home = 'http://weibo.com/u/2490013033'
-r = s.get(url_home,proxies=proxies,headers=headers)
-# print r.content
+# r = s.get(url_home,proxies=proxies,headers=headers)
+r = s.get(url_home,headers=headers)
+print r.content
 
-with open(r'D:\wb.html','w') as f:
-	f.write(r.content)
+# with open(r'D:\wb.html','w') as f:
+# 	f.write(r.content)
+
+
+
+
+

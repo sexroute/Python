@@ -8,7 +8,7 @@ class _PubVariable(object):
 	RandomRange = 128
 	SaltStart = 14
 	SaltEnd = 24
-	pubkeyfile = ".pubkey.key"
+	pubkeyfile = os.path.join(os.path.abspath(os.path.dirname(__file__)), ".pubkey.key")
 
 
 class Encryption(EncryAbstract):
@@ -93,6 +93,7 @@ class Decryption(DecryAbstract):
 
 
 if __name__ == '__main__':
-	ProcessAbstract.encryProcess(Encryption(),'CHENGSIQIN754','12345')
+	# ProcessAbstract.encryProcess(Encryption(),'chengsiqin754@pingan.com.cn','00000a')
+	ProcessAbstract.encryProcess(Encryption(),'1691234347@qq.com','00000a')
 
 

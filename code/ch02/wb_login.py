@@ -13,13 +13,14 @@ def byteprint(obj):
 
 
 
-proxy_hadler = urllib2.ProxyHandler({'http':'http://10.37.84.114:8080'})
+# proxy_hadler = urllib2.ProxyHandler({'http':'http://10.37.84.114:8080'})
 # proxy_opener = urllib2.build_opener(proxy_hadler)
 # urllib2.install_opener(proxy_opener)
 
 cj = cookielib.LWPCookieJar()
 cookie_support = urllib2.HTTPCookieProcessor(cj)
-opener = urllib2.build_opener(proxy_hadler,cookie_support,urllib2.HTTPHandler)
+# opener = urllib2.build_opener(proxy_hadler,cookie_support,urllib2.HTTPHandler)
+opener = urllib2.build_opener(cookie_support,urllib2.HTTPHandler)
 urllib2.install_opener(opener)
 
 
@@ -61,7 +62,7 @@ def encrypassword(password,servertime,nonce,pubkey):
 
 
 def wb_login():
-    su = encryname('@pingan.com.cn')
+    su = encryname('chengsiqin754@pingan.com.cn')
     servertime,nonce,pubkey,rsakv = prelogin(su)
     sp = encrypassword('00000a',servertime,nonce,pubkey)
     postdata = {
@@ -91,14 +92,15 @@ def wb_login():
     print cj
     
     url_final = re.search("location\.replace\(['|\"](.*?)['|\"]\)",urllib2.urlopen(request).read()).group(1)
-    # request = urllib2.Request(url_final,headers=headers)
+    request = urllib2.Request(url_final,headers=headers)
     # print urllib2.urlopen(url_final).read()
+    urllib2.urlopen(request)
     print cj
 
     url_home = 'http://weibo.com/avnpc'
-    # print urllib2.urlopen(url_home).read()
-    with open(r'D:\allo.html','w') as f:
-        f.write(urllib2.urlopen(url_home).read())
+    print urllib2.urlopen(url_home).read()
+    # with open(r'D:\allo.html','w') as f:
+    #     f.write(urllib2.urlopen(url_home).read())
 
 
 wb_login()

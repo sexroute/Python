@@ -12,6 +12,8 @@ class _LocalVar:
 	APP_KEY,APP_SECRET,CALLBACK_URL,AUTH_URL = readConf.fetchWbOauth2()
 	name,password = ProcessAbstract.decryProcess(decry,readConf)
 
+print _LocalVar.name, _LocalVar.password
+
 def getAccessToken():
     client = APIClient(app_key=_LocalVar.APP_KEY, app_secret=_LocalVar.APP_SECRET, redirect_uri=_LocalVar.CALLBACK_URL)
     referer_url = client.get_authorize_url()
@@ -35,14 +37,16 @@ def getAccessToken():
         headers = headers
     )
 
+    print referer_url
+
     resp = urllib2.urlopen(req)
     code = resp.geturl()[-32:]
     r = client.request_access_token(code)
     access_token = r.access_token
     expires_in = r.expires_in
-    urllib2.urlopen('http://weibo.com/u/2490013033').read().decode('gbk')
+    # urllib2.urlopen('http://weibo.com/u/2490013033').read().decode('gbk')
     return access_token
 
 if __name__ == "__main__":
-    getAccessToken()
+    print getAccessToken()
 
