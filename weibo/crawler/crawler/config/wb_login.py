@@ -55,9 +55,9 @@ def encrypassword(password,servertime,nonce,pubkey):
 
 
 def wb_login():
-    su = encryname('1691234347@qq.com')
+    su = encryname('@qq.com')
     servertime,nonce,pubkey,rsakv = prelogin(su)
-    sp = encrypassword('00000a',servertime,nonce,pubkey)
+    sp = encrypassword('',servertime,nonce,pubkey)
     postdata = {
         'entry': 'weibo',
         'gateway': '1',
