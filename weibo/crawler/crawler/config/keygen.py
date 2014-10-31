@@ -93,7 +93,7 @@ class Decryption(DecryAbstract):
 
 
 if __name__ == '__main__':
-	# ProcessAbstract.encryProcess(Encryption(),'chengsiqin754@pingan.com.cn','00000a')
+	# ProcessAbstract.encryProcess(Encryption(),'@pingan.com.cn','')
 	ProcessAbstract.encryProcess(Encryption(),'@qq.com','')
 
 
