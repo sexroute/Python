@@ -5,8 +5,8 @@ from crawler.config.readconf import ReadConf
 
 class ProcessAbstractTest(unittest.TestCase):
 	def setUp(self):
-		self.name = '1691234347@qq.com'
-		self.password = '00000a'
+		self.name = '@qq.com'
+		self.password = ''
 		ProcessAbstract.encryProcess(Encryption(),self.name,self.password)
 		self.readConf = ReadConf()
 		self.decry = Decryption()
